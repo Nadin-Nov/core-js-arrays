@@ -504,16 +504,24 @@ function findCommonElements(arr1, arr2) {
 function findLongestIncreasingSubsequence(nums) {
   if (nums.length === 0) return 0;
 
-  const lengths = nums.reduce((acc, current, index) => {
-    if (index === 0) {
-      acc.push(1);
-    } else {
-      const maxLen = Math.max(...acc.filter((len, i) => nums[i] < current), 0);
-      acc.push(maxLen + 1);
-    }
-    return acc;
-  }, []);
-  return lengths.reduce((max, len) => Math.max(max, len), 0);
+  return nums.reduce(
+    (acc, curr, index) => {
+      if (index === 0) {
+        acc.currentLength = 1;
+        acc.maxLength = 1;
+        return acc;
+      }
+      if (curr > nums[index - 1]) {
+        acc.currentLength += 1;
+      } else {
+        acc.maxLength = Math.max(acc.maxLength, acc.currentLength);
+        acc.currentLength = 1;
+      }
+      acc.maxLength = Math.max(acc.maxLength, acc.currentLength);
+      return acc;
+    },
+    { maxLength: 1, currentLength: 1 }
+  ).maxLength;
 }
 /**
  * Propagates every item in sequence its position times
