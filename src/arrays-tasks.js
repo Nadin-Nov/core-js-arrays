@@ -584,13 +584,13 @@ function sortDigitNamesByNumericOrder(arr) {
  *
  */
 function swapHeadAndTail(arr) {
-  const length = arr.length;
-  if (length <= 1) {
+  const len = arr.length;
+  if (len <= 1) {
     return arr;
   }
-  const midIndex = Math.floor(length / 2);
+  const midIndex = Math.floor(len / 2);
   const head = arr.slice(0, midIndex);
-  const middle = length % 2 === 0 ? [] : arr[midIndex];
+  const middle = len % 2 === 0 ? [] : arr[midIndex];
   const tail = arr.slice(-midIndex);
   return tail.concat(middle, head);
 }
